@@ -15,13 +15,7 @@
 -->
 <resources>
     <style name="DialtactsTheme"
-           parent="android:Theme.Holo">
-        <item name="android:textColorSecondary">@color/dialtacts_secondary_text_color</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:actionBarStyle">@style/DialtactsActionBarStyle</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@drawable/background_dial_holo_dark</item>
-        <item name="android:listViewStyle">@style/ListViewStyle</item>
+           parent="@style/DialtactsTheme1">
         <item name="activated_background">@drawable/list_item_activated_background</item>
         <item name="section_header_background">@drawable/list_title_holo</item>
         <item name="list_section_header_height">32dip</item>
@@ -51,38 +45,50 @@
         <item name="contact_browser_background">@android:color/transparent</item>
         <item name="list_item_text_indent">@dimen/contact_browser_list_item_text_indent</item>
         <!-- CallLog -->
-        <item name="call_log_primary_text_color">#FFFFFF</item>
-        <item name="call_log_primary_background_color">#000000</item>
-        <item name="call_log_secondary_text_color">#888888</item>
-        <item name="call_log_secondary_background_color">#333333</item>
-        <item name="call_log_header_color">@android:color/holo_blue_light</item>
+        <item name="call_log_primary_text_color">@color/call_log_primary_text_color</item>
+        <item name="call_log_primary_background_color">@color/call_log_primary_background_color</item>
+        <item name="call_log_secondary_text_color">@color/call_log_secondary_text_color</item>
+        <item name="call_log_secondary_background_color">@color/call_log_secondary_background_color</item>
+        <item name="call_log_header_color">@color/call_log_header_color</item>
         <!-- VoicemailStatus -->
         <item name="call_log_voicemail_status_height">48dip</item>
-        <item name="call_log_voicemail_status_background_color">#262626</item>
-        <item name="call_log_voicemail_status_text_color">#888888</item>
-        <item name="call_log_voicemail_status_action_text_color">@android:color/holo_blue_light</item>
+        <item name="call_log_voicemail_status_background_color">@color/call_log_voicemail_status_background_color</item>
+        <item name="call_log_voicemail_status_text_color">@color/call_log_voicemail_status_text_color</item>
+        <item name="call_log_voicemail_status_action_text_color">@color/call_log_voicemail_status_action_text_color</item>
             <!-- Favorites -->
         <item name="favorites_padding_bottom">?android:attr/actionBarSize</item>
     </style>
 
-    <style name="CallDetailActivityTheme" parent="android:Theme.Holo">
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="android:gravity">top</item>
+    <style name="DialtactsTheme1" parent="@android:style/Theme.Holo">
+        <item name="android:textColorSecondary">@color/dialtacts_secondary_text_color</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:actionBarStyle">@style/DialtactsActionBarStyle</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/background_dial_holo_dark</item>
         <item name="android:listViewStyle">@style/ListViewStyle</item>
-        <!-- CallLog -->
-        <item name="call_log_primary_text_color">#FFFFFF</item>
-        <item name="call_log_primary_background_color">#000000</item>
-        <item name="call_log_secondary_text_color">#FFFFFF</item>
-        <item name="call_log_secondary_background_color">#333333</item>
-        <item name="call_log_header_color">@android:color/holo_blue_light</item>
-        <!-- VoicemailStatus -->
-        <item name="call_log_voicemail_status_height">48dip</item>
-        <item name="call_log_voicemail_status_background_color">#0a0a0a</item>
-        <item name="call_log_voicemail_status_text_color">#888888</item>
-        <item name="call_log_voicemail_status_action_text_color">@android:color/holo_blue_light</item>
     </style>
 
-    <style name="DetailActivityTheme" parent="@android:style/Theme.Holo">
+    <style name="CallDetailActivityTheme1" parent="@android:style/Theme.Holo">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:gravity">top</item>
+        <item name="android:listViewStyle">@style/ListViewStyle</item>>
+    </style>
+
+    <style name="CallDetailActivityTheme" parent="@style/CallDetailActivityTheme1">
+        <!-- CallLog -->
+        <item name="call_log_primary_text_color">@color/call_log_primary_text_color</item>
+        <item name="call_log_primary_background_color">@color/call_log_primary_background_color</item>
+        <item name="call_log_secondary_text_color">@color/call_log_secondary_text_color</item>
+        <item name="call_log_secondary_background_color">@color/call_log_secondary_background_color</item>
+        <item name="call_log_header_color">@color/call_log_header_color</item>
+        <!-- VoicemailStatus -->
+        <item name="call_log_voicemail_status_height">48dip</item>
+        <item name="call_log_voicemail_status_background_color">@color/call_log_voicemail_status_background_color</item>
+        <item name="call_log_voicemail_status_text_color">@color/call_log_voicemail_status_text_color</item>
+        <item name="call_log_voicemail_status_action_text_color">@color/call_log_voicemail_status_action_text_color</item>
+    </style>
+
+    <style name="DetailActivityTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ContactsActionBarStyle</item>
         <item name="android:actionBarItemBackground">@drawable/action_bar_item_background</item>
         <item name="android:actionBarWidgetTheme">@style/ContactsActionBarTheme</item>
@@ -91,7 +97,7 @@
         <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
-    <style name="EditorActivityTheme" parent="@android:style/Theme.Holo">
+    <style name="EditorActivityTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ContactsActionBarStyle</item>
         <item name="android:actionBarItemBackground">@drawable/action_bar_item_background</item>
         <item name="android:actionBarWidgetTheme">@style/ContactsActionBarTheme</item>
@@ -101,7 +107,7 @@
         <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
-    <style name="BackgroundOnlyTheme" parent="@android:style/Theme.Holo">
+    <style name="BackgroundOnlyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@null</item>
@@ -113,7 +119,7 @@
     <style name="Theme">
     </style>
 
-    <style name="Theme.QuickContact" parent="@android:style/Theme.Holo">
+    <style name="Theme.QuickContact" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowFrame">@null</item>
@@ -125,8 +131,7 @@
         <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
-    <style name="PeopleTheme" parent="@android:style/Theme.Holo">
-        <item name="android:windowBackground">@android:color/black</item>
+    <style name="PeopleTheme1" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ContactsActionBarStyle</item>
         <item name="android:actionBarItemBackground">@drawable/action_bar_item_background</item>
         <item name="android:actionBarWidgetTheme">@style/ContactsActionBarTheme</item>
@@ -135,6 +140,9 @@
         <item name="android:textColorPrimary">@color/primary_text_color</item>
         <item name="android:textColorSecondary">@color/secondary_text_color</item>
         <item name="android:listViewStyle">@style/ListViewStyle</item>
+    </style>
+
+    <style name="PeopleTheme" parent="@style/PeopleTheme1">
         <item name="list_item_height">?android:attr/listPreferredItemHeight</item>
         <item name="activated_background">@drawable/list_item_activated_background</item>
         <item name="section_header_background">@drawable/list_title_holo</item>
@@ -170,20 +178,20 @@
         <item name="favorites_padding_bottom">0dip</item>
     </style>
 
-    <style name="ContactsActionBarStyle" parent="@android:style/Widget.Holo.ActionBar.Solid">
+    <style name="ContactsActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_custom_blue_inverse_holo</item>
         <item name="android:backgroundStacked">@drawable/ab_solid_custom_blue_inverse_holo</item>
         <item name="android:displayOptions"></item>
     </style>
 
-    <style name="ContactsActionBarDropDownStyle" parent="@android:style/Widget.Holo.Spinner">
+    <style name="ContactsActionBarDropDownStyle" parent="@android:style/Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/ab_dropdown_navigation_item_background</item>
     </style>
 
     <style name="ContactsActionBarTheme" parent="@android:style/Theme.Holo">
         <item name="android:textColorHint">#CCCCCC</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:popupMenuStyle">@android:style/Widget.Holo.PopupMenu</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:popupMenuStyle">@android:style/Widget.Holo.Light.PopupMenu</item>
         <item name="android:dropDownListViewStyle">@style/ListViewDropdownStyle</item>
     </style>
 
@@ -195,7 +203,7 @@
         <item name="android:listSelector">?android:attr/listChoiceBackgroundIndicator</item>
     </style>
 
-    <style name="ListViewStyle" parent="@android:style/Widget.Holo.ListView">
+    <style name="ListViewStyle" parent="@android:style/Widget.Holo.Light.ListView">
         <item name="android:overScrollMode">always</item>
     </style>
 
@@ -209,11 +217,11 @@
     <style name="JoinContactActivityTheme" parent="ContactPickerTheme" >
     </style>
 
-    <style name="ContactsPreferencesTheme" parent="@android:Theme.Holo">
+    <style name="ContactsPreferencesTheme" parent="@android:Theme.Holo.Light">
         <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
-    <style name="ContactListFilterTheme" parent="@android:Theme.Holo">
+    <style name="ContactListFilterTheme" parent="@android:Theme.Holo.Light">
         <item name="android:listViewStyle">@style/ListViewStyle</item>
     </style>
 
@@ -229,14 +237,14 @@
     <style name="NonPhoneActivityTheme" parent="@android:Theme.Translucent.NoTitleBar">
     </style>
 
-    <style name="NonPhoneDialogTheme" parent="@android:Theme.Holo.Dialog">
+    <style name="NonPhoneDialogTheme" parent="@android:Theme.Holo.Light.Dialog">
     </style>
 
-    <style name="ConfirmAddDetailDialogTheme" parent="@android:style/Theme.Holo.Dialog.MinWidth">
+    <style name="ConfirmAddDetailDialogTheme" parent="@android:style/Theme.Holo.Light.Dialog.MinWidth">
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
-    <style name="ContactEditorAccountsChangedActivityTheme" parent="@android:style/Theme.Holo.Dialog.NoActionBar.MinWidth">
+    <style name="ContactEditorAccountsChangedActivityTheme" parent="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth">
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:textColorPrimary">@color/primary_text_color</item>
         <item name="android:textColorSecondary">@color/secondary_text_color</item>
@@ -317,7 +325,7 @@
         <item name="android:background">@color/quickcontact_tab_indicator</item>
     </style>
 
-    <style name="Theme.PhotoSelector" parent="@android:style/Theme.Holo">
+    <style name="Theme.PhotoSelector" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -351,12 +359,12 @@
     </style>
 
     <style name="PeopleNavigationDropDownTextAppearance">
-        <item name="android:textColor">#CFCFCF</item>
+        <item name="android:textColor">#333333</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="PeopleNavigationDropDownHeaderTextAppearance">
-        <item name="android:textColor">#DFDFDF</item>
+        <item name="android:textColor">#cdffffff</item>
         <item name="android:textSize">18sp</item>
     </style>
 </resources>

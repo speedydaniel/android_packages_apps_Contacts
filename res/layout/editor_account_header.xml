@@ -20,7 +20,7 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:minHeight="48dip"
-    android:background="#090909"
+    android:background="@color/account_container"
     android:orientation="horizontal"
     android:paddingTop="8dip"
     android:paddingBottom="8dip"
@@ -41,18 +41,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/dialtacts_secondary_text_color"
             android:singleLine="true"
             android:ellipsize="end" />
 
         <TextView
-            android:id="@+id/account_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/dialtacts_secondary_text_color"
-            android:singleLine="true"
-            android:ellipsize="end" />
+             android:id="@+id/account_name"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:textAppearance="?android:attr/textAppearanceSmall"
+             android:textColor="?android:attr/textColorTertiary"
+             android:singleLine="true"
+             android:ellipsize="end" />
 
     </LinearLayout>
 
