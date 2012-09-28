@@ -19,7 +19,8 @@
     android:id="@+id/contact_detail"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
 
     <!-- Placeholder for empty list -->
     <include

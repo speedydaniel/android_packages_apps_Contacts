@@ -101,6 +101,6 @@
 	<color name="photo_backdrop">#000000</color>
 	<color name="photo_container">#4c090909</color>
 	<color name="social_widget_bg">#00000000</color>
-	<color name="contact_detail_fragment">#ffffff</color>
+	<color name="contact_detail_fragment">#000000</color>
 
 </resources>
