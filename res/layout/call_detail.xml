@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone"
-    android:background="@color/call_detail_background"
+    android:background="@android:color/black"
 >
     <!--
       The list view is under everything.
@@ -76,14 +76,14 @@
             android:id="@+id/blue_separator"
             android:layout_width="match_parent"
             android:layout_height="1dip"
-            android:background="@color/call_detail_separator"
+            android:background="@android:color/holo_blue_light"
             android:layout_below="@+id/contact_background_sizer"
         />
         <View
             android:id="@+id/photo_text_bar"
             android:layout_width="match_parent"
             android:layout_height="42dip"
-            android:background="@color/call_detail_photo_bg"
+            android:background="#7F000000"
             android:layout_alignParentLeft="true"
             android:layout_alignBottom="@id/contact_background_sizer"
         />
@@ -211,7 +211,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/call_detail_background"
+        android:background="@android:color/black"
         android:visibility="gone"
         android:clickable="true"
     />
