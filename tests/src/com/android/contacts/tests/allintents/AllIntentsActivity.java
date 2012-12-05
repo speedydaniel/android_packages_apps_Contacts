@@ -16,9 +16,6 @@
 
 package com.android.contacts.tests.allintents;
 
-import com.android.contacts.tests.R;
-import com.google.android.collect.Lists;
-
 import android.accounts.Account;
 import android.app.ListActivity;
 import android.app.SearchManager;
@@ -47,6 +44,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.android.contacts.tests.R;
+import com.google.common.collect.Lists;
 
 /**
  * An activity that provides access to various modes of the contacts application.
@@ -96,10 +96,7 @@ public class AllIntentsActivity extends ListActivity
         ACTION_SEARCH_CONTACT,
         ACTION_SEARCH_EMAIL,
         ACTION_SEARCH_PHONE,
-        SEARCH_SUGGESTION_CLICKED_CALL_BUTTON,
         SEARCH_SUGGESTION_CLICKED_CONTACT,
-        SEARCH_SUGGESTION_DIAL_NUMBER_CLICKED,
-        SEARCH_SUGGESTION_CREATE_CONTACT_CLICKED,
         JOIN_CONTACT,
         EDIT_CONTACT,
         EDIT_CONTACT_LOOKUP,
@@ -317,17 +314,6 @@ public class AllIntentsActivity extends ListActivity
                 startSearchResultActivity(intent);
                 break;
             }
-            case SEARCH_SUGGESTION_CLICKED_CALL_BUTTON: {
-                long contactId = findArbitraryContactWithPhoneNumber();
-                if (contactId != -1) {
-                    Uri contactUri = ContentUris.withAppendedId(Contacts.CONTENT_URI, contactId);
-                    Intent intent = new Intent(Intents.SEARCH_SUGGESTION_CLICKED);
-                    intent.setData(contactUri);
-                    intent.putExtra(SearchManager.ACTION_MSG, "call");
-                    startContactListActivity(intent);
-                }
-                break;
-            }
             case SEARCH_SUGGESTION_CLICKED_CONTACT: {
                 long contactId = findArbitraryContactWithPhoneNumber();
                 if (contactId != -1) {
@@ -336,18 +322,6 @@ public class AllIntentsActivity extends ListActivity
                     intent.setData(contactUri);
                     startContactListActivity(intent);
                 }
-                break;
-            }
-            case SEARCH_SUGGESTION_DIAL_NUMBER_CLICKED: {
-                Intent intent = new Intent(Intents.SEARCH_SUGGESTION_DIAL_NUMBER_CLICKED);
-                intent.setData(Uri.parse("tel:800-4664411"));
-                startContactListActivity(intent);
-                break;
-            }
-            case SEARCH_SUGGESTION_CREATE_CONTACT_CLICKED: {
-                Intent intent = new Intent(Intents.SEARCH_SUGGESTION_CREATE_CONTACT_CLICKED);
-                intent.setData(Uri.parse("tel:800-4664411"));
-                startContactListActivity(intent);
                 break;
             }
             case JOIN_CONTACT: {

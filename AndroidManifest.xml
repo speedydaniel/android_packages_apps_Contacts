@@ -121,7 +121,7 @@
             android:launchMode="singleTask"
             android:clearTaskOnLaunch="true"
             android:icon="@mipmap/ic_launcher_phone"
-            android:screenOrientation="portrait"
+            android:screenOrientation="nosensor"
             android:enabled="@*android:bool/config_voice_capable"
             android:taskAffinity="android.task.contacts.phone"
             android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
@@ -356,19 +356,6 @@
             android:label="@string/activity_title_settings"
             android:theme="@style/ContactsPreferencesTheme" />
 
-        <!-- Used to set options -->
-        <activity
-            android:name=".preference.DialpadPreferenceActivity"
-            android:label="@string/dialer_ui_title"
-            android:icon="@mipmap/ic_launcher_phone"
-            android:theme="@android:style/Theme.Holo.DialogWhenLarge">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <!-- Used to filter contacts list by account -->
         <activity
             android:name=".list.AccountFilterActivity"
@@ -477,7 +464,7 @@
         <activity android:name="CallDetailActivity"
             android:label="@string/callDetailTitle"
             android:theme="@style/CallDetailActivityTheme"
-            android:screenOrientation="nosensor"
+            android:screenOrientation="portrait"
             android:icon="@mipmap/ic_launcher_phone"
             android:taskAffinity="android.task.contacts.phone"
         >
@@ -679,5 +666,6 @@
                 <data android:mimeType="vnd.android.cursor.item/contact" />
             </intent-filter>
         </service>
+        <meta-data android:name="android.nfc.disable_beam_default" android:value="true" />
     </application>
 </manifest>

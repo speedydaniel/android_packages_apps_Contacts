@@ -16,21 +16,6 @@
 
 package com.android.contacts.activities;
 
-import com.android.contacts.ContactsUtils;
-import com.android.contacts.R;
-import com.android.contacts.calllog.CallLogFragment;
-import com.android.contacts.dialpad.DialpadFragment;
-import com.android.contacts.interactions.PhoneNumberInteraction;
-import com.android.contacts.list.ContactListFilterController;
-import com.android.contacts.list.ContactListFilterController.ContactListFilterListener;
-import com.android.contacts.list.ContactListItemView;
-import com.android.contacts.list.OnPhoneNumberPickerActionListener;
-import com.android.contacts.list.PhoneFavoriteFragment;
-import com.android.contacts.list.PhoneNumberPickerFragment;
-import com.android.contacts.util.AccountFilterUtil;
-import com.android.contacts.util.Constants;
-import com.android.internal.telephony.ITelephony;
-
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.ActionBar.Tab;
@@ -42,8 +27,6 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -72,6 +55,21 @@ import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
+
+import com.android.contacts.ContactsUtils;
+import com.android.contacts.R;
+import com.android.contacts.calllog.CallLogFragment;
+import com.android.contacts.dialpad.DialpadFragment;
+import com.android.contacts.interactions.PhoneNumberInteraction;
+import com.android.contacts.list.ContactListFilterController;
+import com.android.contacts.list.ContactListFilterController.ContactListFilterListener;
+import com.android.contacts.list.ContactListItemView;
+import com.android.contacts.list.OnPhoneNumberPickerActionListener;
+import com.android.contacts.list.PhoneFavoriteFragment;
+import com.android.contacts.list.PhoneNumberPickerFragment;
+import com.android.contacts.util.AccountFilterUtil;
+import com.android.contacts.util.Constants;
+import com.android.internal.telephony.ITelephony;
 
 /**
  * The dialer activity that has one tab with the virtual 12key
@@ -710,17 +708,6 @@ public class DialtactsActivity extends TransactionSafeActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if(mPrefs.getBoolean("misc_sensor_rotation", true)) {
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        }
-        else {
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        }
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
 
@@ -764,7 +751,8 @@ public class DialtactsActivity extends TransactionSafeActivity
     }
 
     /**
-     * Returns true if the intent is due to hitting the green send key while in a call.
+     * Returns true if the intent is due to hitting the green send key (hardware call button:
+     * KEYCODE_CALL) while in a call.
      *
      * @param intent the intent that launched this activity
      * @param recentCallsRequest true if the intent is requesting to view recent calls
@@ -796,7 +784,8 @@ public class DialtactsActivity extends TransactionSafeActivity
      */
     private void setCurrentTab(Intent intent) {
         // If we got here by hitting send and we're in call forward along to the in-call activity
-        final boolean recentCallsRequest = Calls.CONTENT_TYPE.equals(intent.getType());
+        boolean recentCallsRequest = Calls.CONTENT_TYPE.equals(intent.resolveType(
+            getContentResolver()));
         if (isSendKeyWhileInCall(intent, recentCallsRequest)) {
             finish();
             return;
@@ -1032,17 +1021,12 @@ public class DialtactsActivity extends TransactionSafeActivity
         } else {
             // This is when the user is looking at the dialer pad.  In this case, the real
             // ActionBar is hidden and fake menu items are shown.
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-               searchMenuItem.setVisible(false);
-               emptyRightMenuItem.setVisible(false);
-            } else {
-                searchMenuItem.setVisible(true);
-                searchMenuItem.setOnMenuItemClickListener(mSearchMenuItemClickListener);
-                updateFakeMenuButtonsVisibility(ViewConfiguration.get(this).hasPermanentMenuKey());
-            }
+            // Except in landscape, in which case the real search menu item is shown.
+            searchMenuItem.setVisible(ContactsUtils.isLandscape(this));
             // If a permanent menu key is available, then we need to show the call settings item
             // so that the call settings item can be invoked by the permanent menu key.
             callSettingsMenuItem.setVisible(ViewConfiguration.get(this).hasPermanentMenuKey());
+            emptyRightMenuItem.setVisible(false);
         }
     }
 
@@ -1241,6 +1225,7 @@ public class DialtactsActivity extends TransactionSafeActivity
      * @param visible True when visible.
      */
     private void updateFakeMenuButtonsVisibility(boolean visible) {
+        // Note: Landscape mode does not have the fake menu and search buttons.
         if (DEBUG) {
             Log.d(TAG, "updateFakeMenuButtonVisibility(" + visible + ")");
         }

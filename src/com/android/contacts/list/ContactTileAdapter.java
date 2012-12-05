@@ -15,15 +15,6 @@
  */
 package com.android.contacts.list;
 
-import com.android.contacts.ContactPhotoManager;
-import com.android.contacts.ContactPresenceIconUtil;
-import com.android.contacts.ContactStatusUtil;
-import com.android.contacts.ContactTileLoaderFactory;
-import com.android.contacts.ContactsUtils;
-import com.android.contacts.GroupMemberLoader;
-import com.android.contacts.GroupMemberLoader.GroupDetailQuery;
-import com.android.contacts.R;
-
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
@@ -36,6 +27,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+
+import com.android.contacts.ContactPhotoManager;
+import com.android.contacts.ContactPresenceIconUtil;
+import com.android.contacts.ContactStatusUtil;
+import com.android.contacts.ContactTileLoaderFactory;
+import com.android.contacts.ContactsUtils;
+import com.android.contacts.GroupMemberLoader;
+import com.android.contacts.GroupMemberLoader.GroupDetailQuery;
+import com.android.contacts.R;
 
 import java.util.ArrayList;
 
@@ -515,6 +515,9 @@ public class ContactTileAdapter extends BaseAdapter {
             super(context);
             mItemViewType = itemViewType;
             mLayoutResId = getLayoutResourceId(mItemViewType);
+
+            // Remove row (but not children) from accessibility node tree.
+            setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
         }
 
         /**
@@ -653,14 +656,6 @@ public class ContactTileAdapter extends BaseAdapter {
                         );
             }
             setMeasuredDimension(width, imageSize + getChildAt(0).getPaddingBottom());
-        }
-
-        @Override
-        public void sendAccessibilityEvent(int eventType) {
-            // This method is called when the child tile is INVISIBLE (meaning "empty"), and the
-            // Accessibility Manager needs to find alternative content description to speak.
-            // Here, we ignore the default behavior, since we don't want to let the manager speak
-            // a contact name for the tile next to the INVISIBLE tile.
         }
     }
 

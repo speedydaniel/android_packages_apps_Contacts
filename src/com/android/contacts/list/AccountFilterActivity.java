@@ -16,13 +16,6 @@
 
 package com.android.contacts.list;
 
-import com.android.contacts.ContactsActivity;
-import com.android.contacts.R;
-import com.android.contacts.model.AccountType;
-import com.android.contacts.model.AccountTypeManager;
-import com.android.contacts.model.AccountWithDataSet;
-import com.google.android.collect.Lists;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -40,6 +33,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import com.android.contacts.ContactsActivity;
+import com.android.contacts.R;
+import com.android.contacts.model.AccountTypeManager;
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.AccountWithDataSet;
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class AccountFilterActivity extends ContactsActivity
         super.onCreate(icicle);
         setContentView(R.layout.contact_list_filter);
 
-        mListView = (ListView) findViewById(com.android.internal.R.id.list);
+        mListView = (ListView) findViewById(android.R.id.list);
         mListView.setOnItemClickListener(this);
 
         ActionBar actionBar = getActionBar();

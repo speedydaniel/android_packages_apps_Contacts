@@ -210,7 +210,7 @@
     <string name="description_delete_button" msgid="6263102114033407382">"Backspace"</string>
     <string name="description_digits_edittext" msgid="8760207516497016437">"a tárcsázandó szám"</string>
     <string name="description_contact_photo" msgid="3387458082667894062">"fotó a névjegyhez"</string>
-    <string name="description_minus_button" msgid="387136707700230172">"mínusz"</string>
+    <string name="description_minus_button" msgid="6908099247930477551">"törlés"</string>
     <string name="description_plus_button" msgid="515164827856229880">"plusz"</string>
     <string name="description_view_contact_detail" msgid="9133251213656414807">"Névjegy megtekintése"</string>
     <string name="no_sdcard_message" product="nosdcard" msgid="5242558018442357189">"Nem található tárhely."</string>
@@ -510,6 +510,10 @@
     <string name="voicemail_fetching_timout" msgid="6691792377574905201">"A hangposta nem hívható le."</string>
     <string name="call_log_new_header" msgid="846546437517724715">"Új"</string>
     <string name="call_log_old_header" msgid="6262205894314263629">"Régebbi"</string>
+    <string name="call_log_voicemail_header" msgid="3945407886667089173">"Csak hangpostahívások"</string>
+    <string name="call_log_incoming_header" msgid="2787722299753674684">"Csak bejövő hívások"</string>
+    <string name="call_log_outgoing_header" msgid="761009180766735769">"Csak kimenő hívások"</string>
+    <string name="call_log_missed_header" msgid="8017148056610855956">"Csak nem fogadott hívások"</string>
     <string name="voicemail_status_voicemail_not_available" msgid="3021980206152528883">"Nem lehet csatlakozni a hangpostaszerverhez."</string>
     <string name="voicemail_status_messages_waiting" msgid="7113421459602803605">"A hangposta nem érhető el. Új hangüzenetek várakoznak."</string>
     <string name="voicemail_status_configure_voicemail" msgid="3738537770636895689">"Állítsa be a hangpostát."</string>
@@ -524,6 +528,9 @@
     <string name="call_log_item_count_and_date" msgid="7641933305703520787">"(<xliff:g id="COUNT">%1$d</xliff:g>) <xliff:g id="DATE">%2$s</xliff:g>"</string>
     <string name="group_name_hint" msgid="238359485263401293">"Csoport neve"</string>
     <string name="nfc_vcard_file_name" msgid="2823095213265993609">"NFC-n kapott névjegy"</string>
+    <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Csak a kimenők megjelenítése"</string>
+    <string name="menu_show_incoming_only" msgid="7534206815238877417">"Csak a bejövők megjelenítése"</string>
+    <string name="menu_show_missed_only" msgid="154473166059743996">"Csak a nem fogadottak"</string>
     <string name="menu_show_voicemails_only" msgid="1898421289561435703">"Csak a hangüzenetek"</string>
     <string name="menu_show_all_calls" msgid="7560347482073345885">"Összes hívás megjelenítése"</string>
     <string name="status_available" msgid="5586870015822828392">"Elérhető"</string>
@@ -559,23 +566,6 @@
     <string name="dialog_phone_call_prohibited_message" msgid="6554711866586660441">"A hívás nem indítható."</string>
     <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"A hangposta beállításához válassza a Menü &gt; Beállítások pontot."</string>
     <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"Hangposta hívásához kapcsolja ki a Repülőgép üzemmódot."</string>
+    <string name="menu_export_database" msgid="2659719297530170820">"Adatbázisfájlok exportálása"</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"További beállítások"</string>
-
-    <!-- 20120417 -->
-    <string name="dialer_ui_title">Tárcsázó beállítások</string>
-    <string name="dialer_ui_orientation_title">Képernyő elforgatás</string>
-    <string name="dialer_ui_orientation_summary">Képernyő elforgatása kijelzővel együtt</string>
-    <string name="t9_sort_title">T9 rendezési sorrendje</string>
-    <string name="t9_sort_summary">Állítsd be a T9 tárcsázó általi rendezés sorrendjét</string>
-    <string name="t9_sort_name">Először a nevek</string>
-    <string name="t9_sort_number">Először a telefonszámok</string>
-    <string name="t9_state_title">T9 tárcsázó engedélyezése</string>
-    <string name="t9_state_summary">T9 tárcsázó általi keresés engedélyezése</string>
-    <string name="t9_state_advanced_title">Haladó T9 keresés engedélyezése</string>
-    <string name="t9_state_advanced_summary">Haladó T9 engedélyezése a tárcsázóban becenév és vállalat alapján (lassabb lehet, tárcsázó újraindítása szükséges)</string>
-    <string name="t9_dial_click_title">Kijelölt személy tárcsázása</string>
-    <string name="t9_dial_click_summary">Tárcsázza a T9 tárcsázó által megtalált személyt</string>
-    <string name="t9_add_to_contacts">Hozzáadás a névjegyekhez</string>
-    <string name="menu_set_vib_ration">Rezgés</string>
-
 </resources>

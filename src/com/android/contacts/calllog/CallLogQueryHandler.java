@@ -16,10 +16,6 @@
 
 package com.android.contacts.calllog;
 
-import com.android.common.io.MoreCloseables;
-import com.android.contacts.voicemail.VoicemailStatusHelperImpl;
-import com.google.android.collect.Lists;
-
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -30,12 +26,18 @@ import android.database.sqlite.SQLiteDatabaseCorruptException;
 import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.VoicemailContract.Status;
 import android.util.Log;
+
+import com.android.common.io.MoreCloseables;
+import com.android.contacts.voicemail.VoicemailStatusHelperImpl;
+import com.google.common.collect.Lists;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -48,6 +50,7 @@ import javax.annotation.concurrent.GuardedBy;
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     private static final String TAG = "CallLogQueryHandler";
+    private static final int NUM_LOGS_TO_DISPLAY = 1000;
 
     /** The token for the query to fetch the new entries from the call log. */
     private static final int QUERY_NEW_CALLS_TOKEN = 53;
@@ -61,6 +64,12 @@ import javax.annotation.concurrent.GuardedBy;
     private static final int UPDATE_MARK_MISSED_CALL_AS_READ_TOKEN = 57;
     /** The token for the query to fetch voicemail status messages. */
     private static final int QUERY_VOICEMAIL_STATUS_TOKEN = 58;
+
+    /**
+     * Call type similar to Calls.INCOMING_TYPE used to specify all types instead of one particular
+     * type.
+     */
+    public static final int CALL_TYPE_ALL = -1;
 
     /**
      * The time window from the current time within which an unread entry will be added to the new
@@ -152,29 +161,16 @@ import javax.annotation.concurrent.GuardedBy;
     }
 
     /**
-     * Fetches the list of calls from the call log.
+     * Fetches the list of calls from the call log for a given type.
      * <p>
      * It will asynchronously update the content of the list view when the fetch completes.
      */
-    public void fetchAllCalls() {
+    public void fetchCalls(int callType) {
         cancelFetch();
         int requestId = newCallsRequest();
-        fetchCalls(QUERY_NEW_CALLS_TOKEN, requestId, true /*isNew*/, false /*voicemailOnly*/);
-        fetchCalls(QUERY_OLD_CALLS_TOKEN, requestId, false /*isNew*/, false /*voicemailOnly*/);
+        fetchCalls(QUERY_NEW_CALLS_TOKEN, requestId, true /*isNew*/, callType);
+        fetchCalls(QUERY_OLD_CALLS_TOKEN, requestId, false /*isNew*/, callType);
     }
-
-    /**
-     * Fetches the list of calls from the call log but include only the voicemail.
-     * <p>
-     * It will asynchronously update the content of the list view when the fetch completes.
-     */
-    public void fetchVoicemailOnly() {
-        cancelFetch();
-        int requestId = newCallsRequest();
-        fetchCalls(QUERY_NEW_CALLS_TOKEN, requestId, true /*isNew*/, true /*voicemailOnly*/);
-        fetchCalls(QUERY_OLD_CALLS_TOKEN, requestId, false /*isNew*/, true /*voicemailOnly*/);
-    }
-
 
     public void fetchVoicemailStatus() {
         startQuery(QUERY_VOICEMAIL_STATUS_TOKEN, null, Status.CONTENT_URI,
@@ -182,7 +178,7 @@ import javax.annotation.concurrent.GuardedBy;
     }
 
     /** Fetches the list of calls in the call log, either the new one or the old ones. */
-    private void fetchCalls(int token, int requestId, boolean isNew, boolean voicemailOnly) {
+    private void fetchCalls(int token, int requestId, boolean isNew, int callType) {
         // We need to check for NULL explicitly otherwise entries with where READ is NULL
         // may not match either the query or its negation.
         // We consider the calls that are not yet consumed (i.e. IS_READ = 0) as "new".
@@ -194,12 +190,15 @@ import javax.annotation.concurrent.GuardedBy;
             // Negate the query.
             selection = String.format("NOT (%s)", selection);
         }
-        if (voicemailOnly) {
+        if (callType > CALL_TYPE_ALL) {
             // Add a clause to fetch only items of type voicemail.
             selection = String.format("(%s) AND (%s = ?)", selection, Calls.TYPE);
-            selectionArgs.add(Integer.toString(Calls.VOICEMAIL_TYPE));
+            selectionArgs.add(Integer.toString(callType));
         }
-        startQuery(token, requestId, Calls.CONTENT_URI_WITH_VOICEMAIL,
+        Uri uri = Calls.CONTENT_URI_WITH_VOICEMAIL.buildUpon()
+                .appendQueryParameter(Calls.LIMIT_PARAM_KEY, Integer.toString(NUM_LOGS_TO_DISPLAY))
+                .build();
+        startQuery(token, requestId, uri,
                 CallLogQuery._PROJECTION, selection, selectionArgs.toArray(EMPTY_STRING_ARRAY),
                 Calls.DEFAULT_SORT_ORDER);
     }
@@ -359,8 +358,7 @@ import javax.annotation.concurrent.GuardedBy;
         void onVoicemailStatusFetched(Cursor statusCursor);
 
         /**
-         * Called when {@link CallLogQueryHandler#fetchAllCalls()} or
-         * {@link CallLogQueryHandler#fetchVoicemailOnly()} complete.
+         * Called when {@link CallLogQueryHandler#fetchCalls(int)}complete.
          */
         void onCallsFetched(Cursor combinedCursor);
     }

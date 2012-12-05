@@ -16,13 +16,6 @@
 
 package com.android.contacts.list;
 
-import com.android.common.widget.CompositeCursorAdapter.Partition;
-import com.android.contacts.ContactListEmptyView;
-import com.android.contacts.ContactPhotoManager;
-import com.android.contacts.R;
-import com.android.contacts.preference.ContactsPreferences;
-import com.android.contacts.widget.ContextMenuAdapter;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -59,6 +52,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.common.widget.CompositeCursorAdapter.Partition;
+import com.android.contacts.ContactListEmptyView;
+import com.android.contacts.ContactPhotoManager;
+import com.android.contacts.R;
+import com.android.contacts.preference.ContactsPreferences;
+import com.android.contacts.widget.ContextMenuAdapter;
 
 /**
  * Common base class for various contact-related list fragments.
@@ -744,7 +744,7 @@ public abstract class ContactEntryListFragment<T extends ContactEntryListAdapter
                     "'android.R.id.list'");
         }
 
-        View emptyView = mView.findViewById(com.android.internal.R.id.empty);
+        View emptyView = mView.findViewById(android.R.id.empty);
         if (emptyView != null) {
             mListView.setEmptyView(emptyView);
             if (emptyView instanceof ContactListEmptyView) {

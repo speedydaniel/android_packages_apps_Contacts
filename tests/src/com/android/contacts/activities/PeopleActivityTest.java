@@ -16,25 +16,6 @@
 
 package com.android.contacts.activities;
 
-import com.android.contacts.ContactPhotoManager;
-import com.android.contacts.ContactsApplication;
-import com.android.contacts.R;
-import com.android.contacts.detail.ContactDetailFragment;
-import com.android.contacts.interactions.TestLoaderManager;
-import com.android.contacts.list.ContactBrowseListFragment;
-import com.android.contacts.model.AccountType;
-import com.android.contacts.model.AccountTypeManager;
-import com.android.contacts.model.AccountWithDataSet;
-import com.android.contacts.model.BaseAccountType;
-import com.android.contacts.test.InjectedServices;
-import com.android.contacts.tests.mocks.ContactsMockContext;
-import com.android.contacts.tests.mocks.MockAccountTypeManager;
-import com.android.contacts.tests.mocks.MockContactPhotoManager;
-import com.android.contacts.tests.mocks.MockContentProvider;
-import com.android.contacts.tests.mocks.MockContentProvider.Query;
-import com.android.contacts.tests.mocks.MockSharedPreferences;
-import com.android.contacts.util.PhoneCapabilityTester;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.Loader;
@@ -50,6 +31,25 @@ import android.provider.Settings;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 import android.widget.TextView;
+
+import com.android.contacts.ContactPhotoManager;
+import com.android.contacts.ContactsApplication;
+import com.android.contacts.R;
+import com.android.contacts.detail.ContactDetailFragment;
+import com.android.contacts.interactions.TestLoaderManager;
+import com.android.contacts.list.ContactBrowseListFragment;
+import com.android.contacts.model.AccountTypeManager;
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.AccountWithDataSet;
+import com.android.contacts.model.account.BaseAccountType;
+import com.android.contacts.test.InjectedServices;
+import com.android.contacts.tests.mocks.ContactsMockContext;
+import com.android.contacts.tests.mocks.MockAccountTypeManager;
+import com.android.contacts.tests.mocks.MockContactPhotoManager;
+import com.android.contacts.tests.mocks.MockContentProvider;
+import com.android.contacts.tests.mocks.MockContentProvider.Query;
+import com.android.contacts.tests.mocks.MockSharedPreferences;
+import com.android.contacts.util.PhoneCapabilityTester;
 
 /**
  * This test is so outdated that it's disabled temporarily.  TODO Update the test and re-enable it.

@@ -16,19 +16,6 @@
 
 package com.android.contacts.interactions;
 
-import com.android.contacts.ContactsApplication;
-import com.android.contacts.R;
-import com.android.contacts.model.AccountType;
-import com.android.contacts.model.AccountTypeManager;
-import com.android.contacts.model.BaseAccountType;
-import com.android.contacts.test.FragmentTestActivity;
-import com.android.contacts.test.InjectedServices;
-import com.android.contacts.tests.mocks.ContactsMockContext;
-import com.android.contacts.tests.mocks.MockAccountTypeManager;
-import com.android.contacts.tests.mocks.MockContentProvider;
-import com.android.contacts.tests.mocks.MockContentProvider.Query;
-import com.android.contacts.util.IntegrationTestUtils;
-
 import android.content.ContentUris;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -36,6 +23,19 @@ import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Contacts.Entity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
+
+import com.android.contacts.ContactsApplication;
+import com.android.contacts.R;
+import com.android.contacts.model.AccountTypeManager;
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.BaseAccountType;
+import com.android.contacts.test.FragmentTestActivity;
+import com.android.contacts.test.InjectedServices;
+import com.android.contacts.tests.mocks.ContactsMockContext;
+import com.android.contacts.tests.mocks.MockAccountTypeManager;
+import com.android.contacts.tests.mocks.MockContentProvider;
+import com.android.contacts.tests.mocks.MockContentProvider.Query;
+import com.android.contacts.util.IntegrationTestUtils;
 
 /**
  * Tests for {@link ContactDeletionInteraction}.

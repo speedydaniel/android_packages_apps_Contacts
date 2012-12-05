@@ -16,7 +16,37 @@
 
 package com.android.contacts.activities;
 
-import com.android.contacts.ContactLoader;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Parcelable;
+import android.preference.PreferenceActivity;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.ProviderStatus;
+import android.provider.ContactsContract.QuickContact;
+import android.provider.Settings;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.android.contacts.ContactSaveService;
 import com.android.contacts.ContactsActivity;
 import com.android.contacts.ContactsUtils;
@@ -50,7 +80,8 @@ import com.android.contacts.list.OnContactBrowserActionListener;
 import com.android.contacts.list.OnContactsUnavailableActionListener;
 import com.android.contacts.list.ProviderStatusWatcher;
 import com.android.contacts.list.ProviderStatusWatcher.ProviderStatusListener;
-import com.android.contacts.model.AccountWithDataSet;
+import com.android.contacts.model.Contact;
+import com.android.contacts.model.account.AccountWithDataSet;
 import com.android.contacts.preference.ContactsPreferenceActivity;
 import com.android.contacts.preference.DisplayOptionsPreferenceFragment;
 import com.android.contacts.util.AccountFilterUtil;
@@ -61,37 +92,6 @@ import com.android.contacts.util.HelpUtils;
 import com.android.contacts.util.PhoneCapabilityTester;
 import com.android.contacts.util.UriUtils;
 import com.android.contacts.widget.TransitionAnimationView;
-
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.graphics.Rect;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
-import android.preference.PreferenceActivity;
-import android.provider.ContactsContract;
-import android.provider.ContactsContract.Contacts;
-import android.provider.ContactsContract.ProviderStatus;
-import android.provider.ContactsContract.QuickContact;
-import android.provider.Settings;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -109,6 +109,8 @@ public class PeopleActivity extends ContactsActivity
 
     /** Shows a toogle button for hiding/showing updates. Don't submit with true */
     private static final boolean DEBUG_TRANSITIONS = false;
+
+    private static final String ENABLE_DEBUG_OPTIONS_HIDDEN_CODE = "debug debug!";
 
     // These values needs to start at 2. See {@link ContactEntryListFragment}.
     private static final int SUBACTIVITY_NEW_CONTACT = 2;
@@ -164,6 +166,8 @@ public class PeopleActivity extends ContactsActivity
     private final TabPagerListener mTabPagerListener = new TabPagerListener();
 
     private ContactDetailLayoutController mContactDetailLayoutController;
+
+    private boolean mEnableDebugMenuOptions;
 
     private final Handler mHandler = new Handler();
 
@@ -631,7 +635,10 @@ public class PeopleActivity extends ContactsActivity
                 invalidateOptionsMenu();
                 break;
             case ActionBarAdapter.Listener.Action.CHANGE_SEARCH_QUERY:
-                setQueryTextToFragment(mActionBarAdapter.getQueryString());
+                final String queryString = mActionBarAdapter.getQueryString();
+                setQueryTextToFragment(queryString);
+                updateDebugOptionsVisibility(
+                        ENABLE_DEBUG_OPTIONS_HIDDEN_CODE.equals(queryString));
                 break;
             default:
                 throw new IllegalStateException("Unkonwn ActionBarAdapter action: " + action);
@@ -641,6 +648,13 @@ public class PeopleActivity extends ContactsActivity
     @Override
     public void onSelectedTabChanged() {
         updateFragmentsVisibility();
+    }
+
+    private void updateDebugOptionsVisibility(boolean visible) {
+        if (mEnableDebugMenuOptions != visible) {
+            mEnableDebugMenuOptions = visible;
+            invalidateOptionsMenu();
+        }
     }
 
     /**
@@ -1162,7 +1176,7 @@ public class PeopleActivity extends ContactsActivity
         }
 
         @Override
-        public void onDetailsLoaded(final ContactLoader.Result result) {
+        public void onDetailsLoaded(final Contact result) {
             if (result == null) {
                 // Nothing is loaded. Show empty state.
                 mContactDetailLayoutController.showEmptyState();
@@ -1449,6 +1463,9 @@ public class PeopleActivity extends ContactsActivity
         makeMenuItemVisible(menu, R.id.menu_settings,
                 showMiscOptions && !ContactsPreferenceActivity.isEmpty(this));
 
+        // Debug options need to be visible even in search mode.
+        makeMenuItemVisible(menu, R.id.export_database, mEnableDebugMenuOptions);
+
         return true;
     }
 
@@ -1541,6 +1558,12 @@ public class PeopleActivity extends ContactsActivity
                 intent.putExtra(Settings.EXTRA_AUTHORITIES, new String[] {
                     ContactsContract.AUTHORITY
                 });
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.export_database: {
+                final Intent intent = new Intent("com.android.providers.contacts.DUMP_DATABASE");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 startActivity(intent);
                 return true;

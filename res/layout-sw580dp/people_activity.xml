@@ -104,8 +104,7 @@
         <FrameLayout
             android:id="@+id/favorites_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_primary">
+            android:layout_height="match_parent">
 
             <fragment
                 android:id="@+id/favorites_fragment"

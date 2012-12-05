@@ -16,12 +16,12 @@
 
 package com.android.contacts.calllog;
 
-import com.android.common.widget.GroupingListAdapter;
-import com.google.common.annotations.VisibleForTesting;
-
 import android.database.Cursor;
 import android.provider.CallLog.Calls;
 import android.telephony.PhoneNumberUtils;
+
+import com.android.common.widget.GroupingListAdapter;
+import com.google.common.annotations.VisibleForTesting;
 
 /**
  * Groups together calls in the call log.
@@ -76,13 +76,13 @@ public class CallLogGroupBuilder {
             } else if (!sameNumber) {
                 // Should only group with calls from the same number.
                 shouldGroup = false;
-            } else if (firstCallType == Calls.VOICEMAIL_TYPE
-                    || firstCallType == Calls.MISSED_TYPE) {
-                // Voicemail and missed calls should only be grouped with subsequent missed calls.
-                shouldGroup = callType == Calls.MISSED_TYPE;
+            } else if (firstCallType == Calls.VOICEMAIL_TYPE) {
+                // never group voicemail.
+                shouldGroup = false;
             } else {
-                // Incoming and outgoing calls group together.
-                shouldGroup = callType == Calls.INCOMING_TYPE || callType == Calls.OUTGOING_TYPE;
+                // Incoming, outgoing, and missed calls group together.
+                shouldGroup = (callType == Calls.INCOMING_TYPE || callType == Calls.OUTGOING_TYPE ||
+                        callType == Calls.MISSED_TYPE);
             }
 
             if (shouldGroup) {

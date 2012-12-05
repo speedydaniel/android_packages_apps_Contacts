@@ -15,19 +15,17 @@
  */
 package com.android.contacts.tests.mocks;
 
-import com.android.contacts.model.AccountType;
 import com.android.contacts.model.AccountTypeManager;
-import com.android.contacts.model.AccountTypeWithDataSet;
-import com.android.contacts.model.AccountWithDataSet;
-import com.google.android.collect.Lists;
-import com.google.android.collect.Maps;
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.AccountTypeWithDataSet;
+import com.android.contacts.model.account.AccountWithDataSet;
+import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import libcore.util.Objects;
 
 /**
  * A mock {@link AccountTypeManager} class.

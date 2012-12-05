@@ -16,16 +16,16 @@
 
 package com.android.contacts.calllog;
 
-import com.android.contacts.R;
-import com.android.contacts.test.NeededForTesting;
-import com.google.common.collect.Lists;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.provider.CallLog.Calls;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.android.contacts.R;
+import com.android.contacts.test.NeededForTesting;
+import com.google.common.collect.Lists;
 
 import java.util.List;
 
@@ -86,7 +86,7 @@ public class CallTypeIconsView extends View {
             case Calls.VOICEMAIL_TYPE:
                 return mResources.voicemail;
             default:
-                return mResources.unknown;
+                throw new IllegalArgumentException("invalid call type: " + callType);
         }
     }
 
@@ -112,7 +112,6 @@ public class CallTypeIconsView extends View {
         public final Drawable outgoing;
         public final Drawable missed;
         public final Drawable voicemail;
-        public final Drawable unknown;
         public final int iconMargin;
 
         public Resources(Context context) {
@@ -121,7 +120,6 @@ public class CallTypeIconsView extends View {
             outgoing = r.getDrawable(R.drawable.ic_call_outgoing_holo_dark);
             missed = r.getDrawable(R.drawable.ic_call_missed_holo_dark);
             voicemail = r.getDrawable(R.drawable.ic_call_voicemail_holo_dark);
-            unknown = r.getDrawable(R.drawable.ic_call_unknown_holo_dark);
             iconMargin = r.getDimensionPixelSize(R.dimen.call_log_icon_margin);
         }
     }

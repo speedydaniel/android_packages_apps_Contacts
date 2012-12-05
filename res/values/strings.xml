@@ -22,29 +22,6 @@
          used in the Launcher icon. -->
     <string name="people">People</string>
 
-    <string name="t9_default_sort">1</string>
-    <string name="t9_sort_title">T9 sorting mode</string>
-    <string name="t9_sort_summary">Choose how to filter T9 results</string>
-    <string name="t9_sort_name">Name matches first</string>
-    <string name="t9_sort_number">Number matches first</string>
-    <string name="t9_sort_nickname">Nickname matches first</string>
-    <string name="t9_sort_company">Company matches first</string>
-    <string name="t9_state_title">Enable T9 dialer</string>
-    <string name="t9_state_summary">Enable T9 searching in dialer</string>
-    <string name="t9_state_advanced_title">Enable advanced T9 searching</string>
-    <string name="t9_state_advanced_summary">Enable T9 searching in dialer for nickname and company (can be slow, needs restart of Dialpad)</string>
-    <string name="t9_dial_click_title">Dial selected contact</string>
-    <string name="t9_dial_click_summary">Dial the selected contact for T9</string>
-    <string name="t9_add_to_contacts">Add to contacts</string>
-    <string name="t9_map_row_2">2abcàáâäåɑæçǽćčá</string>
-    <string name="t9_map_row_3">3deféèêë</string>
-    <string name="t9_map_row_4">4ghiíìïîǵ</string>
-    <string name="t9_map_row_5">5jklḱḱĺ</string>
-    <string name="t9_map_row_6">6mnoòóöôøñŋǿḿńő</string>
-    <string name="t9_map_row_7">7pqrsßɾṕŕśřš</string>
-    <string name="t9_map_row_8">8tuvúùüûű</string>
-    <string name="t9_map_row_9">9wxyzýẃź</string>
-
     <!-- Directory partition name -->
     <string name="contactsList">Contacts</string>
 
@@ -415,11 +392,6 @@
          [CHAR LIMIT=NONE] -->
     <string name="dialerIconLabel">Phone</string>
 
-    <!-- Dialer UI Settings -->
-    <string name="dialer_ui_title">Dialer settings</string>
-    <string name="dialer_ui_orientation_title">Enable sensor orientation</string>
-    <string name="dialer_ui_orientation_summary">Rotate dialer based on sensor</string>
-
     <!-- The description text for the call log tab.
 
          Note: AccessibilityServices use this attribute to announce what the view represents.
@@ -613,9 +585,6 @@
     <!-- Description for incoming calls going to voice mail vs. not -->
     <string name="actionIncomingCall">Incoming calls</string>
 
-    <!-- Description for unknown call types -->
-    <string name="type_unknown">Unknown call</string>
-
     <!-- Action string for calling back a number in the call log -->
     <string name="callBack">Call back</string>
 
@@ -762,8 +731,10 @@
     <!-- String describing the Contact Editor Minus button
 
          Used by AccessibilityService to announce the purpose of the button.
+
+         [CHAR LIMIT=NONE]
     -->
-    <string name="description_minus_button">minus</string>
+    <string name="description_minus_button">delete</string>
 
     <!-- String describing the Contact Editor Plus button
 
@@ -1641,9 +1612,21 @@
     <!-- The header in the call log used to identify items that have been already consumed [CHAR LIMIT=10] -->
     <string name="call_log_old_header">Older</string>
 
+    <!-- The header to show that call log is only showing voicemail calls. [CHAR LIMIT=40] -->
+    <string name="call_log_voicemail_header">Calls with voicemail only</string>
+
+    <!-- The header to show that call log is only showing incoming calls. [CHAR LIMIT=40] -->
+    <string name="call_log_incoming_header">Incoming calls only</string>
+
+    <!-- The header to show that call log is only showing outgoing calls. [CHAR LIMIT=40] -->
+    <string name="call_log_outgoing_header">Outgoing calls only</string>
+
+    <!-- The header to show that call log is only showing missed calls. [CHAR LIMIT=40] -->
+    <string name="call_log_missed_header">Missed calls only</string>
+
     <!--  Voicemail status message shown at the top of call log to notify the user that no new
-      voicemails are currently available. This can happen when both notification as well as data
-      connection to the voicemail server is lost. [CHAR LIMIT=64] -->
+voicemails are currently available. This can happen when both notification as well as data
+connection to the voicemail server is lost. [CHAR LIMIT=64] -->
     <string name="voicemail_status_voicemail_not_available">Can\'t connect to voicemail server.</string>
     <!--  Voicemail status message shown at the top of call log to notify the user that there is no
       data connection to the voicemail server, but there are new voicemails waiting on the server.
@@ -1682,6 +1665,15 @@
 
     <!-- The "file name" displayed for vCards received directly via NFC [CHAR LIMIT=16] -->
     <string name="nfc_vcard_file_name">Contact received over NFC</string>
+
+    <!-- Menu item used to show only outgoing in the call log. [CHAR LIMIT=30] -->
+    <string name="menu_show_outgoing_only">Show outgoing only</string>
+
+    <!-- Menu item used to show only incoming in the call log. [CHAR LIMIT=30] -->
+    <string name="menu_show_incoming_only">Show incoming only</string>
+
+    <!-- Menu item used to show only missed in the call log. [CHAR LIMIT=30] -->
+    <string name="menu_show_missed_only">Show missed only</string>
 
     <!-- Menu item used to show only voicemails in the call log. [CHAR LIMIT=30] -->
     <string name="menu_show_voicemails_only">Show voicemails only</string>
@@ -1851,6 +1843,9 @@
          while the system is in airplane mode. The user cannot access to
          voicemail service in Airplane mode. [CHAR LIMI=NONE] -->
     <string name="dialog_voicemail_airplane_mode_message">To call voicemail, first turn off Airplane mode.</string>
+
+    <!-- Menu item shown only when the special debug mode is enabled, which is used to send all contacts database files via email.  [CHAR LIMI=NONE] -->
+    <string name="menu_export_database">Export database files</string>
 
     <!-- Content description for the fake action menu overflow button.
          This should be same as the description for the real action menu

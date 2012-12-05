@@ -14,8 +14,7 @@
      limitations under the License.
 -->
 <resources>
-    <style name="DialtactsTheme"
-           parent="@style/DialtactsTheme1">
+    <style name="DialtactsTheme" parent="@style/DialtactsTheme1">
         <item name="activated_background">@drawable/list_item_activated_background</item>
         <item name="section_header_background">@drawable/list_title_holo</item>
         <item name="list_section_header_height">32dip</item>
@@ -26,7 +25,6 @@
         <item name="list_item_padding_left">0dip</item>
         <item name="list_item_gap_between_image_and_text">8dip</item>
         <item name="list_item_gap_between_label_and_data">5dip</item>
-        <item name="list_item_vertical_divider_margin">5dip</item>
         <item name="list_item_presence_icon_margin">4dip</item>
         <item name="list_item_presence_icon_size">16dip</item>
         <item name="list_item_photo_size">@dimen/contact_browser_list_item_photo_size</item>
@@ -154,7 +152,6 @@
         <item name="list_item_padding_left">0dip</item>
         <item name="list_item_gap_between_image_and_text">8dip</item>
         <item name="list_item_gap_between_label_and_data">5dip</item>
-        <item name="list_item_vertical_divider_margin">5dip</item>
         <item name="list_item_presence_icon_margin">4dip</item>
         <item name="list_item_presence_icon_size">16dip</item>
         <item name="list_item_photo_size">@dimen/contact_browser_list_item_photo_size</item>
@@ -366,5 +363,9 @@
     <style name="PeopleNavigationDropDownHeaderTextAppearance">
         <item name="android:textColor">#DFDFDF</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="FragmentActionBarPadding">
+        <item name="android:paddingBottom">?android:attr/actionBarSize</item>
     </style>
 </resources>

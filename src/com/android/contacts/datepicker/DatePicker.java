@@ -19,8 +19,6 @@ package com.android.contacts.datepicker;
 // This is a fork of the standard Android DatePicker that additionally allows toggling the year
 // on/off. It uses some private API so that not everything has to be copied.
 
-import com.android.contacts.R;
-
 import android.animation.LayoutTransition;
 import android.annotation.Widget;
 import android.content.Context;
@@ -40,6 +38,8 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 
+import com.android.contacts.R;
+
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -54,6 +54,8 @@ import java.util.Calendar;
  */
 @Widget
 public class DatePicker extends FrameLayout {
+    /** Magic year that represents "no year" */
+    public static int NO_YEAR = 0;
 
     private static final int DEFAULT_START_YEAR = 1900;
     private static final int DEFAULT_END_YEAR = 2100;
@@ -83,7 +85,7 @@ public class DatePicker extends FrameLayout {
 
         /**
          * @param view The view associated with this listener.
-         * @param year The year that was set.
+         * @param year The year that was set or {@link DatePicker#NO_YEAR} if no year was set
          * @param monthOfYear The month that was set (0-11) for compatibility
          *  with {@link java.util.Calendar}.
          * @param dayOfMonth The day of the month that was set.
@@ -108,7 +110,7 @@ public class DatePicker extends FrameLayout {
 
         mPickerContainer = (LinearLayout) findViewById(R.id.parent);
         mDayPicker = (NumberPicker) findViewById(R.id.day);
-        mDayPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
+        mDayPicker.setFormatter(NumberPicker.getTwoDigitFormatter());
         mDayPicker.setOnLongPressUpdateInterval(100);
         mDayPicker.setOnValueChangedListener(new OnValueChangeListener() {
             @Override
@@ -118,7 +120,7 @@ public class DatePicker extends FrameLayout {
             }
         });
         mMonthPicker = (NumberPicker) findViewById(R.id.month);
-        mMonthPicker.setFormatter(NumberPicker.TWO_DIGIT_FORMATTER);
+        mMonthPicker.setFormatter(NumberPicker.getTwoDigitFormatter());
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getShortMonths();
 
@@ -131,13 +133,11 @@ public class DatePicker extends FrameLayout {
             for (int i = 0; i < months.length; i++) {
                 months[i] = String.valueOf(i + 1);
             }
-            mMonthPicker.setMinValue(1);
-            mMonthPicker.setMaxValue(12);
         } else {
-            mMonthPicker.setMinValue(1);
-            mMonthPicker.setMaxValue(12);
             mMonthPicker.setDisplayedValues(months);
         }
+        mMonthPicker.setMinValue(1);
+        mMonthPicker.setMaxValue(12);
 
         mMonthPicker.setOnLongPressUpdateInterval(200);
         mMonthPicker.setOnValueChangedListener(new OnValueChangeListener() {
@@ -279,7 +279,7 @@ public class DatePicker extends FrameLayout {
 
     public void updateDate(int year, int monthOfYear, int dayOfMonth) {
         if (mYear != year || mMonth != monthOfYear || mDay != dayOfMonth) {
-            mYear = (mYearOptional && year == 0) ? getCurrentYear() : year;
+            mYear = (mYearOptional && year == NO_YEAR) ? getCurrentYear() : year;
             mMonth = monthOfYear;
             mDay = dayOfMonth;
             updateSpinners();
@@ -413,7 +413,7 @@ public class DatePicker extends FrameLayout {
 
     /**
      * Initialize the state.
-     * @param year The initial year or 0 if no year has been specified
+     * @param year The initial year or {@link #NO_YEAR} if no year has been specified
      * @param monthOfYear The initial month.
      * @param dayOfMonth The initial day of the month.
      * @param yearOptional True if the user can toggle the year
@@ -421,11 +421,11 @@ public class DatePicker extends FrameLayout {
      */
     public void init(int year, int monthOfYear, int dayOfMonth, boolean yearOptional,
             OnDateChangedListener onDateChangedListener) {
-        mYear = (yearOptional && year == 0) ? getCurrentYear() : year;
+        mYear = (yearOptional && year == NO_YEAR) ? getCurrentYear() : year;
         mMonth = monthOfYear;
         mDay = dayOfMonth;
         mYearOptional = yearOptional;
-        mHasYear = yearOptional ? (year != 0) : true;
+        mHasYear = yearOptional ? (year != NO_YEAR) : true;
         mOnDateChangedListener = onDateChangedListener;
         updateSpinners();
     }
@@ -454,7 +454,7 @@ public class DatePicker extends FrameLayout {
     }
 
     public int getYear() {
-        return (mYearOptional && !mHasYear) ? 0 : mYear;
+        return (mYearOptional && !mHasYear) ? NO_YEAR : mYear;
     }
 
     public boolean isYearOptional() {
@@ -482,7 +482,7 @@ public class DatePicker extends FrameLayout {
 
     private void notifyDateChanged() {
         if (mOnDateChangedListener != null) {
-            int year = (mYearOptional && !mHasYear) ? 0 : mYear;
+            int year = (mYearOptional && !mHasYear) ? NO_YEAR : mYear;
             mOnDateChangedListener.onDateChanged(DatePicker.this, year, mMonth, mDay);
         }
     }

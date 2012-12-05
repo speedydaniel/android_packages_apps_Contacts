@@ -15,9 +15,6 @@
  */
 package com.android.contacts.vcard;
 
-import com.android.contacts.R;
-import com.android.vcard.VCardComposer;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,9 +30,10 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.android.contacts.R;
 
 import java.io.File;
 
@@ -151,6 +149,13 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
         super.onCreate(bundle);
 
         // Check directory is available.
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            Log.w(LOG_TAG, "External storage is in state " + Environment.getExternalStorageState() +
+                    ". Cancelling export");
+            showDialog(R.id.dialog_sdcard_not_found);
+            return;
+        }
+
         final File targetDirectory = Environment.getExternalStorageDirectory();
         if (!(targetDirectory.exists() &&
                 targetDirectory.isDirectory() &&

@@ -16,17 +16,17 @@
 
 package com.android.contacts.tests;
 
-import com.android.i18n.phonenumbers.NumberParseException;
-import com.android.i18n.phonenumbers.PhoneNumberUtil;
-import com.android.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
-import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
-
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.location.CountryDetector;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
+
+import com.android.i18n.phonenumbers.NumberParseException;
+import com.android.i18n.phonenumbers.PhoneNumberUtil;
+import com.android.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat;
+import com.android.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -94,17 +94,21 @@ public class PhoneNumberTestService extends IntentService {
     private void dump_PhoneNumberUtil_format(String number, String country,
             PhoneNumberFormat format) {
         String formatted;
+        String truncated = "";
         boolean isValid = false;
         try {
             final PhoneNumberUtil util = PhoneNumberUtil.getInstance();
             final PhoneNumber pn = util.parse(number, country);
             isValid = util.isValidNumber(pn);
             formatted = util.format(pn, format);
+            util.truncateTooLongNumber(pn);
+            truncated = util.format(pn, format);
         } catch (NumberParseException e) {
             formatted = "Error: " + e.toString();
         }
         Log.i(TAG, "  PhoneNumberUtil.format(parse(" + number + ", " + country + "), " + format
-                + ") = " + formatted + (isValid ? " (valid)" : " (invalid)"));
+                + ") = " + formatted + " / truncated = " + truncated
+                + (isValid ? " (valid)" : " (invalid)"));
     }
 
     private String getCurrentCountryCode() {

@@ -16,16 +16,14 @@
 
 package com.android.contacts.editor;
 
-import com.android.contacts.editor.ContactEditorUtils;
-import com.android.contacts.model.AccountType;
-import com.android.contacts.model.AccountWithDataSet;
-import com.android.contacts.tests.mocks.MockAccountTypeManager;
-import com.google.android.collect.Sets;
-
-import android.content.Context;
 import android.test.AndroidTestCase;
 import android.test.MoreAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
+
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.AccountWithDataSet;
+import com.android.contacts.tests.mocks.MockAccountTypeManager;
+import com.google.common.collect.Sets;
 
 import java.util.Collection;
 import java.util.Set;

@@ -16,15 +16,9 @@
 
 package com.android.contacts;
 
-import com.android.contacts.activities.DialtactsActivity;
-import com.android.contacts.model.AccountType;
-import com.android.contacts.model.AccountTypeManager;
-import com.android.contacts.model.AccountWithDataSet;
-import com.android.contacts.test.NeededForTesting;
-import com.android.contacts.util.Constants;
-
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.location.CountryDetector;
@@ -38,6 +32,13 @@ import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
+import com.android.contacts.activities.DialtactsActivity;
+import com.android.contacts.model.AccountTypeManager;
+import com.android.contacts.model.account.AccountType;
+import com.android.contacts.model.account.AccountWithDataSet;
+import com.android.contacts.test.NeededForTesting;
+import com.android.contacts.util.Constants;
 
 import java.util.List;
 
@@ -227,9 +228,6 @@ public class ContactsUtils {
      * numbers.
      */
     public static Uri getCallUri(String number) {
-        if (PhoneNumberUtils.isVoiceMailNumber(number)) {
-            return Uri.parse("voicemail:");
-        }
         if (PhoneNumberUtils.isUriNumber(number)) {
              return Uri.fromParts(Constants.SCHEME_SIP, number, null);
         }
@@ -330,5 +328,13 @@ public class ContactsUtils {
             }
         }
         return sThumbnailSize;
+    }
+
+    /**
+     * @return if the context is in landscape orientation.
+     */
+    public static boolean isLandscape(Context context) {
+        return context.getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE;
     }
 }
